@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import type { User } from "firebase/auth"
-import { signInWithPopup, onAuthStateChanged } from "firebase/auth"
+import { onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth"
 import { firebaseAuth, googleAuthProvider } from "../firebase"
 import "./Header.css"
 
@@ -37,6 +37,11 @@ export function Header() {
 
   async function handleGoogleLogin() {
     await signInWithPopup(firebaseAuth, googleAuthProvider)
+  }
+
+  async function handleLogout() {
+    await signOut(firebaseAuth)
+    closeMenu()
   }
 
   function closeMenu() {
@@ -89,6 +94,15 @@ export function Header() {
               <a href="#about" onClick={closeMenu}>
                 About
               </a>
+              {currentUser ? (
+                <button
+                  type="button"
+                  className="menu-item-button"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              ) : null}
             </nav>
           ) : null}
         </div>

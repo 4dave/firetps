@@ -23,13 +23,35 @@ Then initialize Hosting and deploy the Vite build output:
 npm install -g firebase-tools
 firebase login
 firebase init hosting
-npm run build
+pnpm run build
 firebase deploy
 ```
 
 For Vite, the hosting public directory should be `dist` and the app should be configured as a single-page app.
 
 Note: the Firebase web config is safe to keep out of git, but it is still public in the browser bundle after build. If you need real secrets, keep them on the server or in Cloud Functions.
+
+## GitHub Actions Deployment
+
+This repo includes four workflows:
+
+- `.github/workflows/ci.yml`: runs `pnpm build` on pull requests to `main`
+- `.github/workflows/hosting-preview.yml`: deploys PR preview channels on Firebase Hosting
+- `.github/workflows/hosting-production.yml`: deploys Hosting to `live` on push to `main`
+- `.github/workflows/firestore-deploy.yml`: deploys Firestore rules/indexes when related files change on `main`
+
+### Required GitHub configuration
+
+1. Add repository secret `FIREBASE_SERVICE_ACCOUNT_FIRETPSAPP`
+
+- Firebase Console -> Project Settings -> Service accounts -> Generate new private key
+- Paste the full JSON into the secret value
+
+2. Create GitHub environment `production` (used by production Hosting and Firestore workflows)
+3. Optional but recommended: require manual approval for `production` environment
+4. Optional but recommended: protect `main` branch and require CI checks
+
+Once configured, merges to `main` will deploy Hosting automatically, and Firestore rules/index changes will deploy via the Firestore workflow.
 
 Currently, two official plugins are available:
 

@@ -139,8 +139,25 @@
   font-weight: 600;
 }
 
+.menu-item-button {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 12px;
+  color: var(--text-h);
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
 .menu-panel a:hover,
-.menu-panel a:focus-visible {
+.menu-panel a:focus-visible,
+.menu-item-button:hover,
+.menu-item-button:focus-visible {
   background: var(--accent-bg);
   color: var(--accent);
   outline: none;
