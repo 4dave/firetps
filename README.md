@@ -36,7 +36,7 @@ Note: the Firebase web config is safe to keep out of git, but it is still public
 This repo includes four workflows:
 
 - `.github/workflows/ci.yml`: runs `pnpm build` on pull requests to `main`
-- `.github/workflows/hosting-preview.yml`: deploys PR preview channels on Firebase Hosting
+- `.github/workflows/hosting-preview.yml`: deploys pull requests to the stable staging Hosting site
 - `.github/workflows/hosting-production.yml`: deploys Hosting to `live` on push to `main`
 - `.github/workflows/firestore-deploy.yml`: deploys Firestore rules/indexes when related files change on `main`
 
@@ -50,6 +50,28 @@ This repo includes four workflows:
 2. Create GitHub environment `production` (used by production Hosting and Firestore workflows)
 3. Optional but recommended: require manual approval for `production` environment
 4. Optional but recommended: protect `main` branch and require CI checks
+
+### Stable staging site for auth testing
+
+Firebase Auth authorized domains do not support wildcards, so PR preview channels are a poor fit for Google sign-in. This repo is configured to use a dedicated staging Hosting site instead.
+
+Create the staging site once:
+
+```bash
+firebase hosting:sites:create firetpsapp-staging
+```
+
+Then add the staging domain to Firebase Authentication -> Settings -> Authorized domains:
+
+- `firetpsapp-staging.web.app`
+- `firetpsapp-staging.firebaseapp.com`
+
+The checked-in `.firebaserc` maps:
+
+- `production` -> `firetpsapp`
+- `staging` -> `firetpsapp-staging`
+
+If you choose a different staging site id, update `.firebaserc` to match.
 
 Once configured, merges to `main` will deploy Hosting automatically, and Firestore rules/index changes will deploy via the Firestore workflow.
 
