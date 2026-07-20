@@ -62,3 +62,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_FIRETPSAPP }}
           projectId: firetpsapp
           channelId: live
+          target: production

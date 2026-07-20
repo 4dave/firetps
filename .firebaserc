@@ -1,5 +1,17 @@
 {
     "projects": {
         "default": "firetpsapp"
+    },
+    "targets": {
+        "firetpsapp": {
+            "hosting": {
+                "production": [
+                    "firetpsapp"
+                ],
+                "staging": [
+                    "firetpsapp-staging"
+                ]
+            }
+        }
     }
 }

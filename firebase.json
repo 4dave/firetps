@@ -3,21 +3,42 @@
         "rules": "firestore.rules",
         "indexes": "firestore.indexes.json"
     },
-    "hosting": {
-        "public": "dist",
-        "ignore": [
-            "firebase.json",
-            "**/.*",
-            "**/node_modules/**"
-        ],
-        "rewrites": [
-            {
-                "source": "**",
-                "destination": "/index.html"
-            }
-        ],
-        "predeploy": [
-            "pnpm run build"
-        ]
-    }
+    "hosting": [
+        {
+            "target": "production",
+            "public": "dist",
+            "ignore": [
+                "firebase.json",
+                "**/.*",
+                "**/node_modules/**"
+            ],
+            "rewrites": [
+                {
+                    "source": "**",
+                    "destination": "/index.html"
+                }
+            ],
+            "predeploy": [
+                "pnpm run build"
+            ]
+        },
+        {
+            "target": "staging",
+            "public": "dist",
+            "ignore": [
+                "firebase.json",
+                "**/.*",
+                "**/node_modules/**"
+            ],
+            "rewrites": [
+                {
+                    "source": "**",
+                    "destination": "/index.html"
+                }
+            ],
+            "predeploy": [
+                "pnpm run build"
+            ]
+        }
+    ]
 }
