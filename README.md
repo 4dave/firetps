@@ -51,6 +51,19 @@ This repo includes four workflows:
 3. Optional but recommended: require manual approval for `production` environment
 4. Optional but recommended: protect `main` branch and require CI checks
 
+### Repository-level Firebase web config for workflow builds
+
+Add these values at the repository level in GitHub Actions (Settings -> Secrets and variables -> Actions):
+
+- `VITE_FIREBASE_API_KEY`
+- `VITE_FIREBASE_AUTH_DOMAIN`
+- `VITE_FIREBASE_PROJECT_ID`
+- `VITE_FIREBASE_STORAGE_BUCKET`
+- `VITE_FIREBASE_MESSAGING_SENDER_ID`
+- `VITE_FIREBASE_APP_ID`
+
+Use repository-level variables/secrets for these values, not only environment-scoped values, because PR/staging workflows may not run in the `production` environment context.
+
 ### Stable staging site for auth testing
 
 Firebase Auth authorized domains do not support wildcards, so PR preview channels are a poor fit for Google sign-in. This repo is configured to use a dedicated staging Hosting site instead.
